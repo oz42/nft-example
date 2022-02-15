@@ -83,6 +83,7 @@ do
 	echo -en ' }\n' >> $TMPFILE
 done
 
+# -- North Korea is IPv4 only:
 echo " kp"
 echo -n "add element inet filter blocked4-kp { " >> $TMPFILE
 cat ~/cclist/kp.zone | sed '/^#/d' | while read LINE
