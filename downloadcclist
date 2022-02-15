@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# -- Cron job to be run once a day
+
+if [ ! -d ~/cclist ]
+then mkdir ~/cclist
+fi
+
+cd ~/cclist
+
+echo -n processing
+
+for CCTLD in \
+AL \
+AR \
+AZ \
+BD \
+BO \
+BR \
+BZ \
+CL \
+CN \
+CO \
+CY \
+CZ \
+DO \
+EC \
+EG \
+ET \
+GA \
+GE \
+GT \
+HK \
+HU \
+ID \
+IN \
+IR \
+KH \
+KR \
+KZ \
+LB \
+MA \
+MU \
+MX \
+MY \
+NG \
+NP \
+PA \
+PH \
+PK \
+PL \
+PY \
+RU \
+RS \
+TH \
+TN \
+TR \
+UA \
+UG \
+US \
+UY \
+UZ \
+VE \
+VN \
+ZA
+do
+	CCTLDLOWER=$(echo ${CCTLD} | tr '[:upper:]' '[:lower:]')
+	echo -n " ${CCTLDLOWER}"
+
+	if [ -f ${CCTLDLOWER}.zone ]
+	then mv ${CCTLDLOWER}.zone ${CCTLDLOWER}.zone.old
+	fi
+
+	wget --timeout=5 -t 2 -q -O ${CCTLDLOWER}.zone http://ipverse.net/ipblocks/data/countries/${CCTLDLOWER}.zone || (echo ipverse.net is offline; exit 1)
+
+	# North Korea is IPv4 only:
+	wget --timeout=5 -t 2 -q -O kp.zone http://ipverse.net/ipblocks/data/countries/kp.zone || (echo ipverse.net is offline; exit 1)
+
+	wget --timeout=5 -t 2 -q -O ${CCTLDLOWER}-ipv6.zone http://ipverse.net/ipblocks/data/countries/${CCTLDLOWER}-ipv6.zone || (echo ipverse.net is offline; exit 1)
+done
+
+echo -e '\n'

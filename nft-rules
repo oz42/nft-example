@@ -1,0 +1,326 @@
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+# -- table inet/ip/ip6 filter...
+table inet filter {
+
+	set whitelistv4 { type ipv4_addr; flags interval; auto-merge; }
+	set whitelistv6 { type ipv6_addr; flags interval; auto-merge; }
+	set buttholes { type ipv4_addr; flags interval; auto-merge; }
+
+  # -- fail2ban
+	set f2b-4 { type ipv4_addr; flags interval; auto-merge; }
+	set f2b-6 { type ipv6_addr; flags interval; auto-merge; }
+
+	set blocked4-al { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ar { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-az { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-bd { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-bo { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-br { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-bz { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-cl { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-cn { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-co { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-cy { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-cz { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-do { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ec { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-eg { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-et { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ga { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ge { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-gt { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-hk { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-hu { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-id { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-in { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ir { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-kr { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-kh { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-kp { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-kz { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-lb { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ma { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-mu { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-mx { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-my { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ng { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-np { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-pa { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ph { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-pk { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-pl { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-py { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ru { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-rs { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-th { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-tn { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-tr { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ua { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ug { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-uy { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-uz { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-ve { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-vn { type ipv4_addr; flags interval; auto-merge; }
+	set blocked4-za { type ipv4_addr; flags interval; auto-merge; }
+
+	set blocked6-al { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ar { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-az { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-bd { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-bo { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-br { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-bz { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-cl { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-cn { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-co { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-cy { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-cz { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-do { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ec { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-eg { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-et { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ga { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ge { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-gt { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-hk { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-hu { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-id { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-in { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ir { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-kr { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-kh { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-kz { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-lb { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ma { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-mu { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-mx { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-my { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ng { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-np { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-pa { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ph { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-pk { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-pl { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-py { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ru { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-rs { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-th { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-tn { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-tr { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ua { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ug { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-uy { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-uz { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-ve { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-vn { type ipv6_addr; flags interval; auto-merge; }
+	set blocked6-za { type ipv6_addr; flags interval; auto-merge; }
+
+	chain input {
+		type filter hook input priority 0
+		policy drop
+
+		iif lo accept
+
+		pkttype broadcast drop
+
+		ct state { established, related } accept
+
+		ct state invalid log prefix "nftables state invalid " counter limit rate 10/second drop
+		ct state invalid drop
+
+		# -- buttholes
+		ip saddr @buttholes counter drop
+		
+		# -- whitelist
+		ip saddr @whitelistv4 ct state new tcp dport { 25 } counter accept
+		ip6 saddr @whitelistv6 ct state new tcp dport { 25 } counter accept
+
+		# -- fail2ban
+		ip saddr @f2b-4 log prefix "nftables f2b " counter drop
+		ip6 saddr @f2b-6 log prefix "nftables f2b " counter drop
+
+		# -- countries
+		ip saddr @blocked4-al log prefix "nftables blocked4-al " counter drop
+		ip saddr @blocked4-ar log prefix "nftables blocked4-ar " counter drop
+		ip saddr @blocked4-az log prefix "nftables blocked4-az " counter drop
+		ip saddr @blocked4-bd log prefix "nftables blocked4-bd " counter drop
+		ip saddr @blocked4-bo log prefix "nftables blocked4-bo " counter drop
+		ip saddr @blocked4-br log prefix "nftables blocked4-br " counter drop
+		ip saddr @blocked4-bz log prefix "nftables blocked4-bz " counter drop
+		ip saddr @blocked4-cl log prefix "nftables blocked4-cl " counter drop
+		ip saddr @blocked4-cn log prefix "nftables blocked4-cn " counter drop
+		ip saddr @blocked4-co log prefix "nftables blocked4-co " counter drop
+		ip saddr @blocked4-cy log prefix "nftables blocked4-cy " counter drop
+		ip saddr @blocked4-cz log prefix "nftables blocked4-cz " counter drop
+		ip saddr @blocked4-do log prefix "nftables blocked4-do " counter drop
+		ip saddr @blocked4-ec log prefix "nftables blocked4-ec " counter drop
+		ip saddr @blocked4-eg log prefix "nftables blocked4-eg " counter drop
+		ip saddr @blocked4-et log prefix "nftables blocked4-et " counter drop
+		ip saddr @blocked4-ga log prefix "nftables blocked4-ga " counter drop
+		ip saddr @blocked4-ge log prefix "nftables blocked4-ge " counter drop
+		ip saddr @blocked4-gt log prefix "nftables blocked4-gt " counter drop
+		ip saddr @blocked4-hk log prefix "nftables blocked4-hk " counter drop
+		ip saddr @blocked4-hu log prefix "nftables blocked4-hu " counter drop
+		ip saddr @blocked4-id log prefix "nftables blocked4-id " counter drop
+		ip saddr @blocked4-in log prefix "nftables blocked4-in " counter drop
+		ip saddr @blocked4-ir log prefix "nftables blocked4-ir " counter drop
+		ip saddr @blocked4-kr log prefix "nftables blocked4-kr " counter drop
+		ip saddr @blocked4-kh log prefix "nftables blocked4-kh " counter drop
+		ip saddr @blocked4-kp log prefix "nftables blocked4-kp " counter drop
+		ip saddr @blocked4-kz log prefix "nftables blocked4-kz " counter drop
+		ip saddr @blocked4-lb log prefix "nftables blocked4-lb " counter drop
+		ip saddr @blocked4-ma log prefix "nftables blocked4-ma " counter drop
+		ip saddr @blocked4-mu log prefix "nftables blocked4-mu " counter drop
+		ip saddr @blocked4-mx log prefix "nftables blocked4-mx " counter drop
+		ip saddr @blocked4-my log prefix "nftables blocked4-my " counter drop
+		ip saddr @blocked4-np log prefix "nftables blocked4-np " counter drop
+		ip saddr @blocked4-pa log prefix "nftables blocked4-pa " counter drop
+		ip saddr @blocked4-ph log prefix "nftables blocked4-ph " counter drop
+		ip saddr @blocked4-pk log prefix "nftables blocked4-pk " counter drop
+		ip saddr @blocked4-pl log prefix "nftables blocked4-pl " counter drop
+		ip saddr @blocked4-py log prefix "nftables blocked4-py " counter drop
+		ip saddr @blocked4-ru log prefix "nftables blocked4-ru " counter drop
+		ip saddr @blocked4-rs log prefix "nftables blocked4-rs " counter drop
+		ip saddr @blocked4-th log prefix "nftables blocked4-th " counter drop
+		ip saddr @blocked4-tn log prefix "nftables blocked4-tn " counter drop
+		ip saddr @blocked4-tr log prefix "nftables blocked4-tr " counter drop
+		ip saddr @blocked4-ua log prefix "nftables blocked4-ua " counter drop
+		ip saddr @blocked4-ug log prefix "nftables blocked4-ug " counter drop
+		ip saddr @blocked4-uy log prefix "nftables blocked4-uy " counter drop
+		ip saddr @blocked4-uz log prefix "nftables blocked4-uz " counter drop
+		ip saddr @blocked4-ve log prefix "nftables blocked4-ve " counter drop
+		ip saddr @blocked4-vn log prefix "nftables blocked4-vn " counter drop
+		ip saddr @blocked4-za log prefix "nftables blocked4-za " counter drop
+
+		ip6 saddr @blocked6-al log prefix "nftables blocked6-al " counter drop
+		ip6 saddr @blocked6-ar log prefix "nftables blocked6-ar " counter drop
+		ip6 saddr @blocked6-az log prefix "nftables blocked6-az " counter drop
+		ip6 saddr @blocked6-bd log prefix "nftables blocked6-bd " counter drop
+		ip6 saddr @blocked6-bo log prefix "nftables blocked6-bo " counter drop
+		ip6 saddr @blocked6-br log prefix "nftables blocked6-br " counter drop
+		ip6 saddr @blocked6-bz log prefix "nftables blocked6-bz " counter drop
+		ip6 saddr @blocked6-cl log prefix "nftables blocked6-cl " counter drop
+		ip6 saddr @blocked6-cn log prefix "nftables blocked6-cn " counter drop
+		ip6 saddr @blocked6-co log prefix "nftables blocked6-co " counter drop
+		ip6 saddr @blocked6-cy log prefix "nftables blocked6-cy " counter drop
+		ip6 saddr @blocked6-cz log prefix "nftables blocked6-cz " counter drop
+		ip6 saddr @blocked6-do log prefix "nftables blocked6-do " counter drop
+		ip6 saddr @blocked6-ec log prefix "nftables blocked6-ec " counter drop
+		ip6 saddr @blocked6-eg log prefix "nftables blocked6-eg " counter drop
+		ip6 saddr @blocked6-et log prefix "nftables blocked6-et " counter drop
+		ip6 saddr @blocked6-ga log prefix "nftables blocked6-ga " counter drop
+		ip6 saddr @blocked6-ge log prefix "nftables blocked6-ge " counter drop
+		ip6 saddr @blocked6-gt log prefix "nftables blocked6-gt " counter drop
+		ip6 saddr @blocked6-hu log prefix "nftables blocked6-hu " counter drop
+		ip6 saddr @blocked6-id log prefix "nftables blocked6-id " counter drop
+		ip6 saddr @blocked6-in log prefix "nftables blocked6-in " counter drop
+		ip6 saddr @blocked6-ir log prefix "nftables blocked6-ir " counter drop
+		ip6 saddr @blocked6-kr log prefix "nftables blocked6-kr " counter drop
+		ip6 saddr @blocked6-kh log prefix "nftables blocked6-kh " counter drop
+		ip6 saddr @blocked6-kz log prefix "nftables blocked6-kz " counter drop
+		ip6 saddr @blocked6-lb log prefix "nftables blocked6-lb " counter drop
+		ip6 saddr @blocked6-ma log prefix "nftables blocked6-ma " counter drop
+		ip6 saddr @blocked6-mu log prefix "nftables blocked6-mu " counter drop
+		ip6 saddr @blocked6-mx log prefix "nftables blocked6-mx " counter drop
+		ip6 saddr @blocked6-my log prefix "nftables blocked6-my " counter drop
+		ip6 saddr @blocked6-ng log prefix "nftables blocked6-ng " counter drop
+		ip6 saddr @blocked6-np log prefix "nftables blocked6-np " counter drop
+		ip6 saddr @blocked6-pa log prefix "nftables blocked6-pa " counter drop
+		ip6 saddr @blocked6-ph log prefix "nftables blocked6-ph " counter drop
+		ip6 saddr @blocked6-pk log prefix "nftables blocked6-pk " counter drop
+		ip6 saddr @blocked6-pl log prefix "nftables blocked6-pl " counter drop
+		ip6 saddr @blocked6-py log prefix "nftables blocked6-py " counter drop
+		ip6 saddr @blocked6-ru log prefix "nftables blocked6-ru " counter drop
+		ip6 saddr @blocked6-rs log prefix "nftables blocked6-rs " counter drop
+		ip6 saddr @blocked6-th log prefix "nftables blocked6-th " counter drop
+		ip6 saddr @blocked6-tn log prefix "nftables blocked6-tn " counter drop
+		ip6 saddr @blocked6-tr log prefix "nftables blocked6-tr " counter drop
+		ip6 saddr @blocked6-ua log prefix "nftables blocked6-ua " counter drop
+		ip6 saddr @blocked6-ug log prefix "nftables blocked6-ug " counter drop
+		ip6 saddr @blocked6-uz log prefix "nftables blocked6-uz " counter drop
+		ip6 saddr @blocked6-ve log prefix "nftables blocked6-ve " counter drop
+		ip6 saddr @blocked6-vn log prefix "nftables blocked6-vn " counter drop
+		ip6 saddr @blocked6-za log prefix "nftables blocked6-za " counter drop
+
+		# -- my services
+		ct state new meta l4proto tcp th dport { 25, 80, 443, 993 } counter limit rate 5/second accept
+		ct state new meta l4proto tcp th dport { 25, 80, 443, 993 } log prefix "nftables services " counter drop
+
+		# -- ssh
+		ct state new meta l4proto tcp th dport 22 counter limit rate 1/second accept
+		ct state new meta l4proto tcp th dport 22 log prefix "nftables ssh " counter drop
+
+		# -- ICMP
+		meta l4proto icmp icmp type { echo-request, timestamp-request, timestamp-reply } counter drop
+		icmpv6 type echo-request counter drop
+		ip6 nexthdr icmpv6 icmpv6 type { nd-neighbor-solicit,  nd-router-advert, nd-neighbor-advert } counter accept
+
+		meta l4proto icmp counter limit rate 12/second accept
+		meta l4proto icmp log prefix "nftables icmp " counter drop
+		meta l4proto icmpv6 counter limit rate 12/second accept
+		meta l4proto icmpv6 log prefix "nftables icmp " counter drop
+
+		meta l4proto tcp log prefix "nftables tcp " counter limit rate 10/second drop
+		meta l4proto udp log prefix "nftables udp " counter limit rate 10/second drop
+
+		log prefix "nftables catchall " counter limit rate 8/second drop
+		counter drop
+	}
+}
+
+add element inet filter whitelistv6 {
+	2a01:4f8:c2c:6d05::1,
+}
+
+#	59.111.144.9,
+add element inet filter whitelistv4 {
+	51.255.214.65,
+	63.83.74.158,
+	69.94.128.25,
+	178.33.235.51,
+	185.14.28.86,
+	195.201.20.244,
+}
+
+add element inet filter buttholes {
+	31.44.185.0/24,
+	45.56.128.0/18,
+	45.120.224.0/22,
+	45.143.200.0/22,
+	45.146.164.0/23,
+	49.64.0.0/11,
+	50.2.0.0/15,
+	59.111.144.9,
+	78.142.18.0/24,
+	79.124.62.0/24,
+	87.233.192.0/18,
+	92.63.197.0/24,
+	94.102.51.0/24,
+	103.89.88.0/22,
+	103.138.108.0/23,
+	103.139.44.0/23,
+	103.141.138.0/23,
+	103.147.184.0/22,
+	103.153.76.0/22,
+	103.170.121.0/24,
+	103.207.36.0/22,
+	103.232.52.0/22,
+	168.87.0.0/16,
+	180.214.236.0/22,
+	185.71.64.0/22,
+	185.176.27.0/24,
+	185.196.220.0/24,
+	103.90.228.0/22,
+	104.152.52.21/32,
+	104.152.52.22/31,
+	104.152.52.24/29,
+	104.152.52.32/29,
+	106.75.0.0/16,
+	212.192.8.0/22,
+	13.64.0.0/11,
+	13.96.0.0/13,
+	13.104.0.0/14,
+}

@@ -1,0 +1,97 @@
+#!/bin/bash
+
+TMPFILE=$(mktemp)
+echo "flush set inet filter blocked4-kp" >> $TMPFILE
+
+echo -n processing
+
+for CCTLD in \
+AL \
+AR \
+AZ \
+BD \
+BO \
+BR \
+BZ \
+CL \
+CN \
+CO \
+CY \
+CZ \
+DO \
+EC \
+EG \
+ET \
+GA \
+GE \
+GT \
+HK \
+HU \
+ID \
+IN \
+IR \
+KH \
+KR \
+KZ \
+LB \
+MA \
+MU \
+MX \
+MY \
+NG \
+NP \
+PA \
+PH \
+PK \
+PL \
+PY \
+RU \
+RS \
+TH \
+TN \
+TR \
+UA \
+UG \
+UY \
+UZ \
+VE \
+VN \
+ZA
+do
+	CCTLDLOWER=$(echo ${CCTLD} | tr '[:upper:]' '[:lower:]')
+	echo -n " ${CCTLDLOWER}"
+
+	echo "flush set inet filter blocked4-${CCTLDLOWER}" >> $TMPFILE
+
+	echo -n "add element inet filter blocked4-${CCTLDLOWER} { " >> $TMPFILE
+	cat ~/cclist/${CCTLDLOWER}.zone | sed '/^#/d' | while read LINE
+	do
+		echo -n ${LINE} >> $TMPFILE
+		echo -n ", " >> $TMPFILE
+	done
+
+	echo -en ' }\n' >> $TMPFILE
+
+	echo "flush set inet filter blocked6-${CCTLDLOWER}" >> $TMPFILE
+
+	echo -n "add element inet filter blocked6-${CCTLDLOWER} { " >> $TMPFILE
+	cat ~/cclist/${CCTLDLOWER}-ipv6.zone | sed '/^#/d' | while read LINE
+	do
+		echo -n ${LINE} >> $TMPFILE
+		echo -n ", " >> $TMPFILE
+	done
+	echo -en ' }\n' >> $TMPFILE
+done
+
+echo " kp"
+echo -n "add element inet filter blocked4-kp { " >> $TMPFILE
+cat ~/cclist/kp.zone | sed '/^#/d' | while read LINE
+do
+	echo -n ${LINE} >> $TMPFILE
+	echo -n ", " >> $TMPFILE
+done
+echo -en ' }\n' >> $TMPFILE
+
+nft -f $TMPFILE
+rm $TMPFILE
+
